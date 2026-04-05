@@ -1,22 +1,22 @@
 -- USERS
-CREATE TABLE users (
+CREATE TABLE Hack_C1_dataset.users (
   user_id STRING,
   email STRING,
   created_at TIMESTAMP
 );
 
--- WORKFLOW RUNS (core table)
-CREATE TABLE workflow_runs (
+-- WORKFLOW RUNS
+CREATE TABLE Hack_C1_dataset.workflow_runs (
   workflow_id STRING,
   user_id STRING,
   query STRING,
-  status STRING, -- pending / success / failed
+  status STRING,
   created_at TIMESTAMP,
   completed_at TIMESTAMP
 );
 
 -- EMAILS
-CREATE TABLE emails (
+CREATE TABLE Hack_C1_dataset.emails (
   email_id STRING,
   workflow_id STRING,
   subject STRING,
@@ -27,19 +27,19 @@ CREATE TABLE emails (
 );
 
 -- TASKS
-CREATE TABLE tasks (
+CREATE TABLE Hack_C1_dataset.tasks (
   task_id STRING,
   workflow_id STRING,
   title STRING,
   description STRING,
   priority STRING,
-  status STRING, -- pending / done
+  status STRING,
   due_date TIMESTAMP,
   created_at TIMESTAMP
 );
 
 -- CALENDAR EVENTS
-CREATE TABLE calendar_events (
+CREATE TABLE Hack_C1_dataset.calendar_events (
   event_id STRING,
   workflow_id STRING,
   title STRING,
@@ -51,7 +51,7 @@ CREATE TABLE calendar_events (
 );
 
 -- NOTES
-CREATE TABLE notes (
+CREATE TABLE Hack_C1_dataset.notes (
   note_id STRING,
   workflow_id STRING,
   content STRING,
@@ -59,8 +59,8 @@ CREATE TABLE notes (
   created_at TIMESTAMP
 );
 
--- AGENT LOGS (very important for judging)
-CREATE TABLE agent_logs (
+-- AGENT LOGS
+CREATE TABLE Hack_C1_dataset.agent_logs (
   log_id STRING,
   workflow_id STRING,
   agent_name STRING,
@@ -69,8 +69,8 @@ CREATE TABLE agent_logs (
   timestamp TIMESTAMP
 );
 
--- TOOL CALLS (MCP tracking)
-CREATE TABLE tool_calls (
+-- TOOL CALLS
+CREATE TABLE Hack_C1_dataset.tool_calls (
   call_id STRING,
   workflow_id STRING,
   tool_name STRING,
