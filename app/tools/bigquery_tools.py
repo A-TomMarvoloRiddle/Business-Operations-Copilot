@@ -27,3 +27,15 @@ def create_workflow(user_id, query):
     insert_row("workflow_runs", data)
 
     return workflow_id
+
+def log_agent(agent_name, workflow_id, action, reasoning):
+    data = {
+        "log_id": str(uuid.uuid4()),
+        "workflow_id": workflow_id,
+        "agent_name": agent_name,
+        "action": action,
+        "reasoning": reasoning,
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+    insert_row("agent_logs", data)
