@@ -24,3 +24,27 @@ def get_gmail_service():
             pickle.dump(creds, token)
 
     return build('gmail', 'v1', credentials=creds)
+
+def fetch_emails(workflow_id, max_results=5):
+    service = get_gmail_service()
+
+    results = service.users().messages().list(
+        userId='me', maxResults=max_results).execute()
+
+    messages = results.get('messages', [])
+    emails = []
+
+    for msg in messages:
+        msg_data = service.users().messages().get(
+            userId='me', id=msg['id']).execute()
+
+        snippet = msg_data.get('snippet', '')
+
+        emails.append({
+            "id": msg['id'],
+            "snippet": snippet
+        })
+
+    log_tool_call(workflow_id, "gmail_fetch", {}, emails)
+
+    return emails
