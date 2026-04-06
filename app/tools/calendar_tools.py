@@ -26,3 +26,19 @@ def get_calendar_service():
             pickle.dump(creds, token)
 
     return build('calendar', 'v3', credentials=creds)
+
+def create_event(workflow_id, summary, start_time, end_time):
+    service = get_calendar_service()
+
+    event = {
+        'summary': summary,
+        'start': {'dateTime': start_time, 'timeZone': 'UTC'},
+        'end': {'dateTime': end_time, 'timeZone': 'UTC'},
+    }
+
+    created_event = service.events().insert(
+        calendarId='primary', body=event).execute()
+
+    log_tool_call(workflow_id, "calendar_create", event, created_event)
+
+    return created_event['id']
