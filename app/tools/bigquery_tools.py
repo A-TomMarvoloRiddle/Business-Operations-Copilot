@@ -52,3 +52,21 @@ def log_tool_call(workflow_id, tool_name, input_data, output_data, status="succe
     }
 
     insert_row("tool_calls", data)
+
+def create_task(workflow_id, title, description, priority="medium"):
+    task_id = str(uuid.uuid4())
+
+    data = {
+        "task_id": task_id,
+        "workflow_id": workflow_id,
+        "title": title,
+        "description": description,
+        "priority": priority,
+        "status": "pending",
+        "due_date": None,
+        "created_at": datetime.utcnow().isoformat()
+    }
+
+    insert_row("tasks", data)
+
+    return task_id
