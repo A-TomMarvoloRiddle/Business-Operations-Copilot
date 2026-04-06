@@ -39,3 +39,16 @@ def log_agent(agent_name, workflow_id, action, reasoning):
     }
 
     insert_row("agent_logs", data)
+
+def log_tool_call(workflow_id, tool_name, input_data, output_data, status="success"):
+    data = {
+        "call_id": str(uuid.uuid4()),
+        "workflow_id": workflow_id,
+        "tool_name": tool_name,
+        "input": str(input_data),
+        "output": str(output_data),
+        "status": status,
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+    insert_row("tool_calls", data)
