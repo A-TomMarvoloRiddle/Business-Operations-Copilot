@@ -105,3 +105,18 @@ def create_calendar_event(workflow_id, title, start_time, end_time, attendees):
     insert_row("calendar_events", data)
 
     return event_id
+
+def save_note(workflow_id, content, summary):
+    note_id = str(uuid.uuid4())
+
+    data = {
+        "note_id": note_id,
+        "workflow_id": workflow_id,
+        "content": content,
+        "summary": summary,
+        "created_at": datetime.utcnow().isoformat()
+    }
+
+    insert_row("notes", data)
+
+    return note_id
