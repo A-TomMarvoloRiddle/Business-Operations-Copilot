@@ -70,3 +70,20 @@ def create_task(workflow_id, title, description, priority="medium"):
     insert_row("tasks", data)
 
     return task_id
+
+def save_email(workflow_id, subject, sender, summary, raw_snippet):
+    email_id = str(uuid.uuid4())
+
+    data = {
+        "email_id": email_id,
+        "workflow_id": workflow_id,
+        "subject": subject,
+        "sender": sender,
+        "summary": summary,
+        "raw_snippet": raw_snippet,
+        "created_at": datetime.utcnow().isoformat()
+    }
+
+    insert_row("emails", data)
+
+    return email_id
