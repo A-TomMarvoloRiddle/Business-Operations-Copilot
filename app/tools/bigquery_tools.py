@@ -87,3 +87,21 @@ def save_email(workflow_id, subject, sender, summary, raw_snippet):
     insert_row("emails", data)
 
     return email_id
+
+def create_calendar_event(workflow_id, title, start_time, end_time, attendees):
+    event_id = str(uuid.uuid4())
+
+    data = {
+        "event_id": event_id,
+        "workflow_id": workflow_id,
+        "title": title,
+        "start_time": start_time,
+        "end_time": end_time,
+        "attendees": attendees,
+        "status": "scheduled",
+        "created_at": datetime.utcnow().isoformat()
+    }
+
+    insert_row("calendar_events", data)
+
+    return event_id
